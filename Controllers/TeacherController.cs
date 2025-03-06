@@ -1,4 +1,5 @@
 ﻿using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SqlServerPlugin;
@@ -9,6 +10,7 @@ namespace StudentTeacherManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Student")]
     public class TeacherController : ControllerBase
     {
         private ITeacherInformationUseCases _teacherInformationUseCases;
@@ -16,7 +18,7 @@ namespace StudentTeacherManagement.Controllers
         {
             this._teacherInformationUseCases = teacherInformationUseCases;
         }
-
+        
         [HttpGet("get-all-teacher")]
         public IEnumerable<Teacher> Get()
         {
